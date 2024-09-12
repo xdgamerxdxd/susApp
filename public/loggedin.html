@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="loggedin.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+</head>
+<body>
+    <h1> <span id="username"></span> logged in, wow! </h1>
+    <h2> NOW LOGOUT!</h2>
+    <div class="buttons">
+        <a href="/logout"><button>Logout</button></a>
+    </div>
+    <div class="del-button">
+        <a><button id="deleteAccount">DELETE YOURSELF NOW</button></a>
+    </div>
+
+<script>    
+  fetch('/username')
+        .then(response => response.json())
+        .then(data => {
+          if (data.username) {
+            document.getElementById('username').textContent = data.username;
+          } else {
+            alert('Error fetching username');
+          }
+        });
+      document.getElementById('deleteAccount').addEventListener('click', () => {
+        fetch('/deleteSelf', {
+          method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message) {
+            alert(data.message);
+            window.location.href = '/'; // Redirect to the home page
+          } else if (data.error) {
+            alert('Failed to delete account: ' + data.error);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Error deleting account');
+        });
+      });
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+body {
+    background: url(./7243.jpg);
+    background-size: cover;
+}
+
+
+
+h1 {
+    text-align: center;
+    font-size: 75px;
+    color: #FFF;
+}
+
+h2 {
+    text-align: center;
+    font-size: 50px;
+    color: red;
+    margin: auto;
+}
+
+a {
+    margin: 5%;
+}
+
+button {
+    width: 500px;
+    height: 100px;
+    border: 1px solid #FFF;
+    background-color: #DDD;
+    border-radius: 5px;
+    font-size: 50px;
+    color: #FFF;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+}
