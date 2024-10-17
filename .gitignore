@@ -12,3 +12,4 @@ tests/example.spec.js
 .github/workflows/playwright.yml
 playwright-report/index.html
 .env
+
