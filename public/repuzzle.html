@@ -189,6 +189,10 @@ const correct = document.getElementById('correct');
 
 const buttons = document.querySelectorAll('.but'); 
 let random = Math.floor(Math.random() * (90 - 10 + 1)) + 10;
+if (random % 10 === 0) {
+    random = Math.floor(Math.random() * (90 - 10 + 1)) + 10;
+}
+
 document.getElementById('wantedScore').textContent = random;
 
 let sus = false
