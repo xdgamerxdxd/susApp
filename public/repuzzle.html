@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="repuzzle.css">
+    <title>Repuzzle</title>
+</head>
+<body>
+    <div id="startbg" class="startbg">
+        <button id="start" class="start-button">start</button>
+        <div class="main">
+            <div>
+                <h1 id="timer">10</h1>
+                <h1 id="endState"></h1>
+            </div>
+            <div>
+                <h2><span id="score">x</span>/<span id="wantedScore"></span></h2>
+                <div class="">
+                    <div class="gap">
+                        <button id="button" class="but">1</button>
+                        <button id="button" class="but">2</button>
+                        <button id="button" class="but">3</button>
+                    </div>
+                    <div class="gap">
+                        <button id="button" class="but">4</button>
+                        <button id="button" class="but">5</button>
+                        <button id="button" class="but">6</button>
+                    </div>
+                    <div class="gap">
+                        <button id="button" class="but">7</button>
+                        <button id="button" class="but">8</button>
+                        <button id="button" class="but">9</button>
+                    </div>
+                </div>
+                <div>
+                    <button class="button"></button>
+                    <button class="button"></button>
+                    <button class="button"></button>
+                    <button class="button"></button>
+                    <button class="button"></button>
+                    <button class="button"></button>
+                    <button class="button"></button>
+                    <button class="button"></button>
+                    <button class="button"></button>
+                    <button class="button"></button>
+                </div>
+            </div>
+        </div>
+        <audio id="musci" src="./assets/intensemusic.mp4"></audio>
+        <audio id="wrong" src="./assets/wron.mp3"></audio>
+        <audio id="correct" src="./assets/correct.mp3"></audio>
+    </div>
+    <script>
+
+let username = '';
+
+fetch('/username')
+.then(response => response.json())
+.then(data => {
+    if (data.username) {
+    username = data.username;
+    } else {
+    alert('Error fetching username');
+    }
+});        
+
+const updateScore = (event) => {
+        let scorevis = parseInt(document.getElementById('score').textContent);
+        let inputNumber = parseInt(event.target.textContent);
+        const buttons = document.querySelectorAll('.button');
+        
+        if (sus) {
+            alert(message);
+        }
+        else {
+        fetch('/updateScore', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                score: score,
+                number: inputNumber
+            })
+        })
+        .then(response => {
+            if (response.ok){
+                return response.json();
+            }
+            else {
+                throw new Error('Something went wrong');
+            }
+        })
+        .then (data => {
+            if (data.error) {
+                alert('Error updating score: ' + data.error);
+            } else {
+                score = data.updatedScore;
+                buttons[0].classList.add('dButton');
+                buttons[0].classList.remove('button');
+                if (buttons.length === 1) {
+                    sus = true;
+                    if (data.updatedScore === random) {
+                        message = 'You won!';
+                        correct.play();
+                        updateUserTime();
+                    } else {
+                        message = 'You lost!';
+                        wrong.play();
+                    }
+                    gameover = true;
+                    document.getElementById('endState').textContent = message;
+                };
+            }
+        });
+    }
+}
+
+const timer = () => {
+    const startTime = performance.now(); 
+    const timerElement = document.getElementById("timer"); 
+
+    const totalTime = 10; 
+
+    const interval = setInterval(() => {
+        if (gameover === false) {
+        const elapsedTime = (performance.now() - startTime) / 1000; 
+        let timed = (totalTime - elapsedTime).toFixed(3); 
+
+        if (timed <= 0) {
+            timed = '0.000'; 
+            clearInterval(interval);
+            message = 'You lost!';
+            gameover = true; 
+            sus = true;
+            document.getElementById('endState').textContent = message;
+            audio.pause();
+        }
+
+        timerElement.innerHTML = timed; 
+    } else {
+        clearInterval(interval);
+        audio.pause();
+    }
+    }, 1);
+}
+
+const updateUserTime = () => {
+        fetch('/updateUserTime', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                time: document.getElementById('timer').textContent,
+                username: username
+            })
+        })
+        .then(response => {
+            if (response.ok){
+                return response.json();
+            }
+            else {
+                throw new Error('Something went wrong');
+            }
+        })
+        .then (data => {
+            if (data.error) {
+                alert('Error updating time: ' + data.error);
+            } else {
+                alert('New Highscore: ' + data.newTime);
+            }
+        });
+    }
+
+const startGame = () => {
+    document.getElementById('start').remove();
+    document.getElementById('startbg').classList.remove('startbg');
+}
+
+const playAudio = () => {
+        audio.play();
+    }
+
+const audio = document.getElementById('musci');
+const wrong = document.getElementById('wrong');
+const correct = document.getElementById('correct');
+
+const buttons = document.querySelectorAll('.but'); 
+let random = Math.floor(Math.random() * (90 - 10 + 1)) + 10;
+document.getElementById('wantedScore').textContent = random;
+
+let sus = false
+let message = '';
+let score = 0;
+let gameover = false;
+
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        updateScore(event);
+    });
+});
+
+document.querySelector('.start-button').addEventListener('click', () => {
+    startGame();
+    timer();
+    playAudio();
+});
+    
+
+    </script>
+</body>
+</html>

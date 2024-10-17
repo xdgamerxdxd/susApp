@@ -1,0 +1,86 @@
+* {
+    user-select: none;
+}
+
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.dButton {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    padding: 15px 32px;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.main {
+    margin: 15%;
+    text-align: center;
+    size: 10px;
+    position: relative;
+    z-index: 0;
+}
+
+#button {
+    padding: 5px 10px;
+    font-size: 12px;          
+    background-color: #007BFF;
+    color: white;            
+    border: none;             
+    border-radius: 4px;  
+    padding: 15px 32px;     
+    cursor: pointer;          
+    transition: background-color 0.3s ease;
+}
+
+#button:hover {
+    background-color: #0056b3;
+}
+
+.gap {
+    margin-bottom: 10px;
+}
+
+.start-button {
+    position: fixed;
+    top: 37.5%;
+    left: 43%;
+    background-color: #ffe600;
+    border: none;
+    border-radius: 6px;
+    font-size: 60px;
+    color: black;
+    padding: 70px 70px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.start-button:hover {
+    background-color: #ffcc00;
+}
+
+.startbg {
+    background-color: #3f3f3f8c;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}

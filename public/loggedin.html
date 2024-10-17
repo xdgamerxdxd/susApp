@@ -11,7 +11,9 @@
     <h2> NOW LOGOUT!</h2>
     <div class="buttons">
         <a href="/logout"><button>Logout</button></a>
+        <a href="/game"><button>Game</button></a>
     </div>
+    <a><button id="reset">Reset password</button></a>
     <div class="del-button">
         <a><button id="deleteAccount">DELETE YOURSELF NOW</button></a>
     </div>
@@ -43,6 +45,10 @@
           console.error('Error:', error);
           alert('Error deleting account');
         });
+      });
+
+      document.getElementById('reset').addEventListener('click', () => {
+        window.location.href = '/reset';
       });
 </script>
 </body>

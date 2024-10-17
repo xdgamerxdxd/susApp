@@ -31,3 +31,12 @@ input {
     border-radius: 5px;
     font-size: 2rem;
 }
+
+input[type="submit"] {
+    color: #FFF;
+    background-color: #DDD;
+}
+
+input[type="submit"]:hover {
+    background-color: red;
+}

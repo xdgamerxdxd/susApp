@@ -5,7 +5,20 @@
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
+    "express-rate-limit": "^7.4.0",
     "jsonwebtoken": "^9.0.2",
-    "mysql": "^2.18.1"
+    "limiter": "^2.1.0",
+    "mariadb": "^3.3.2",
+    "mysql": "^2.18.1",
+    "sequelize": "^6.37.4",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "sinon": "^18.0.1",
+    "supertest": "^7.0.0"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }
